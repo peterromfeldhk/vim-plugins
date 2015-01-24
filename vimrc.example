@@ -1,0 +1,44 @@
+" GPG
+let g:GPGPreferArmor=1
+let g:GPGDefaultRecipients=["peter.romfeld.hk@gmail.com"]
+
+execute pathogen#infect()
+
+set nocp
+set backspace=indent,eol,start
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set smarttab
+set showcmd
+set showmatch
+set hlsearch
+set incsearch
+set ruler
+set background=dark
+filetype plugin indent on
+syntax on
+filetype on
+
+map <leader>td <Plug>TaskList
+map <leader>g :GundoToggle<CR>
+let g:pyflakes_use_quickfix = 0
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+set completeopt=menuone,longest,preview
+map <leader>n :NERDTreeToggle<CR>
+map <leader>a <Esc>:Ack!
+
+" Add the virtualenv's site-packages to vim path // not tested yet
+py << EOF
+import os.path
+import sys
+import vim
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, project_base_dir)
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+
